@@ -8,10 +8,26 @@ import SoundComponent from '@/components/SoundComponent';
 import ah from '@/assets/audio/TestAh.mp3';
 import la from '@/assets/audio/TestLa.mp3';
 import oh from '@/assets/audio/TestOh.mp3';
+import ootFanfare from '@/assets/audio/OOT_PressStart_Mono.mp3';
 import { useSoundMemory } from '@/hooks/useSoundMemory';
+import { Link } from 'expo-router';
+import { openModal } from '../modal';
+import useSound from '@/hooks/useSound';
+import { useState } from 'react';
 
 export default function HomeScreen() {
-  const { soundMemory, addSound } = useSoundMemory();
+  const { playSound } = useSound({ soundSource: ootFanfare });
+  const [birdSingingBack, setBirdSingingBack] = useState(false);
+  function onPatternMatch(matchedPattern: string) {
+    setBirdSingingBack(true);
+    console.log(matchedPattern);
+    playSound();
+    setTimeout(() => {
+      setBirdSingingBack(false);
+    }, 2000);
+    // openModal();
+  }
+  const { addSound } = useSoundMemory(onPatternMatch);
 
   const handleAddSound = (sound: string) => {
     addSound(sound);
@@ -66,9 +82,22 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <SoundComponent soundSource={ah} onPlay={() => handleAddSound('ah')} />
-        <SoundComponent soundSource={oh} onPlay={() => handleAddSound('oh')} />
-        <SoundComponent soundSource={la} onPlay={() => handleAddSound('la')} />
+        <Link href="/modal">Open modal</Link>
+        <SoundComponent
+          soundSource={ah}
+          onPlay={() => handleAddSound('ah')}
+          disabled={birdSingingBack}
+        />
+        <SoundComponent
+          soundSource={oh}
+          onPlay={() => handleAddSound('oh')}
+          disabled={birdSingingBack}
+        />
+        <SoundComponent
+          soundSource={la}
+          onPlay={() => handleAddSound('la')}
+          disabled={birdSingingBack}
+        />
       </ThemedView>
     </ParallaxScrollView>
   );

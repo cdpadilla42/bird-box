@@ -1,52 +1,22 @@
-import { useEffect, useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Audio } from 'expo-av';
-import { Sound } from 'expo-av/build/Audio';
+import useSound from '@/hooks/useSound';
 
 type SoundComponentProps = {
   soundSource: any;
-  onPlay: () => void;
+  onPlay?: () => void;
+  disabled?: boolean;
 };
+
 export default function SoundComponent({
   soundSource,
-  onPlay,
+  onPlay = () => {},
+  disabled = false,
 }: SoundComponentProps) {
-  const [sound, setSound] = useState<Sound>();
-
-  async function playSound() {
-    if (sound) {
-      console.log('Playing Sound');
-      await sound.stopAsync();
-      await sound.playAsync();
-      onPlay();
-    }
-  }
-
-  useEffect(() => {
-    const loadSound = async () => {
-      console.log('Loading Sound');
-      // try {
-      const { sound } = await Audio.Sound.createAsync(soundSource);
-      setSound(sound);
-      // } catch (error) {
-      //   console.error('Could not load sound', error);
-      // }
-    };
-    loadSound();
-  }, [soundSource]);
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+  const { playSound } = useSound({ soundSource, onPlay });
 
   return (
     <View style={styles.container}>
-      <Button title="Play Sound" onPress={playSound} />
+      <Button title="Play Sound" onPress={playSound} disabled={disabled} />
     </View>
   );
 }
