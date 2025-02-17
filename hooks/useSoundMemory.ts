@@ -4,7 +4,7 @@ import isEqual from 'lodash.isequal';
 type UseSoundMemoryProps = (patternMatched: string) => void;
 
 const PATTERNS = {
-  primary: ['ah', 'oh', 'la'],
+  epona: ['ah', 'oh', 'la'],
 };
 
 function patternMatches(soundMemory: string[], patterns: typeof PATTERNS) {

@@ -8,55 +8,34 @@ import SoundComponent from '@/components/SoundComponent';
 import ah from '@/assets/audio/TestAh.mp3';
 import la from '@/assets/audio/TestLa.mp3';
 import oh from '@/assets/audio/TestOh.mp3';
-import ootFanfare from '@/assets/audio/OOT_PressStart_Mono.mp3';
-import eponaSong from '@/assets/audio/eponasung.mp3';
+
 import { useSoundMemory } from '@/hooks/useSoundMemory';
 import { Link } from 'expo-router';
 import { openModal } from '../modal';
-import useSound from '@/hooks/useSound';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import SongRouter from '@/components/SongComponents/SongRouter';
 
 export default function HomeScreen() {
-  const { playSound: playJingle, sound: jingleSound } = useSound({
-    soundSource: ootFanfare,
-  });
-  const { playSound: playEponaSound, sound: eponaSound } = useSound({
-    soundSource: eponaSong,
-  });
   const [birdSingingBack, setBirdSingingBack] = useState(false);
-  const intervalId = useRef<NodeJS.Timeout>(null);
-  async function handleIntervalicBirdSingingCheck() {
-    const soundStatus = await eponaSound?.getStatusAsync();
-    // @ts-expect-error property does in fact exist
-    if (!soundStatus?.isPlaying) {
-      setBirdSingingBack(false);
-      if (intervalId?.current) {
-        clearInterval(intervalId?.current);
-        // @ts-expect-error Mutating ref
-        intervalId.current = null;
-      }
-    }
-  }
+  const [songTitle, setSongTitle] = useState<string>();
 
   function onPatternMatch(matchedPattern: string) {
-    setBirdSingingBack(true);
-    console.log(matchedPattern);
-    playJingle();
-    setTimeout(() => {
-      playEponaSound();
-      // @ts-expect-error Mutating ref
-      intervalId.current = setInterval(
-        () => handleIntervalicBirdSingingCheck(),
-        500
-      );
-    }, 1000);
-    // openModal();
+    setSongTitle(matchedPattern);
   }
   const { addSound } = useSoundMemory(onPatternMatch);
 
   const handleAddSound = (sound: string) => {
     addSound(sound);
   };
+
+  function onEventSoundFinish() {
+    setSongTitle('');
+    setBirdSingingBack(false);
+  }
+
+  function onPlaySong() {
+    setBirdSingingBack(true);
+  }
 
   return (
     <ParallaxScrollView
@@ -122,6 +101,11 @@ export default function HomeScreen() {
           soundSource={la}
           onPlay={() => handleAddSound('la')}
           disabled={birdSingingBack}
+        />
+        <SongRouter
+          songTitle={songTitle}
+          onEventSoundFinish={onEventSoundFinish}
+          onPlaySong={onPlaySong}
         />
       </ThemedView>
     </ParallaxScrollView>

@@ -13,8 +13,34 @@ export default function useSound({
 }: UseSoundProps) {
   const [sound, setSound] = useState<Sound>();
 
-  async function playSound() {
+  async function getIsSoundLoaded() {
     if (sound) {
+      return new Promise((res, rej) => {
+        const id = setInterval(() => {
+          let checkCount = 0;
+          const run = async () => {
+            const status = await sound.getStatusAsync();
+            if (status.isLoaded) {
+              res(true);
+              clearInterval(id);
+            }
+            if (checkCount >= 3000) {
+              console.log('Could not load sound');
+              rej(false);
+              clearInterval(id);
+            }
+            checkCount++;
+          };
+          run();
+        }, 100);
+      });
+    }
+    return false;
+  }
+
+  async function playSound() {
+    const isSoundLoaded = await getIsSoundLoaded();
+    if (sound && isSoundLoaded) {
       console.log('Playing Sound');
       await sound.stopAsync();
       await sound.playAsync();
