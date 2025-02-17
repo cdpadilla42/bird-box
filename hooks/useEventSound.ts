@@ -16,7 +16,6 @@ export default function useEventSound({
 
   async function handleIntervalCheck() {
     const soundStatus = await eponaSound?.getStatusAsync();
-    console.log(soundStatus);
     // @ts-expect-error property does in fact exist
     if (soundStatus && !soundStatus?.isPlaying) {
       onSoundFinish();
