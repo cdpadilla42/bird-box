@@ -9,22 +9,47 @@ import ah from '@/assets/audio/TestAh.mp3';
 import la from '@/assets/audio/TestLa.mp3';
 import oh from '@/assets/audio/TestOh.mp3';
 import ootFanfare from '@/assets/audio/OOT_PressStart_Mono.mp3';
+import eponaSong from '@/assets/audio/eponasung.mp3';
 import { useSoundMemory } from '@/hooks/useSoundMemory';
 import { Link } from 'expo-router';
 import { openModal } from '../modal';
 import useSound from '@/hooks/useSound';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function HomeScreen() {
-  const { playSound } = useSound({ soundSource: ootFanfare });
+  const { playSound: playJingle, sound: jingleSound } = useSound({
+    soundSource: ootFanfare,
+  });
+  const { playSound: playEponaSound, sound: eponaSound } = useSound({
+    soundSource: eponaSong,
+  });
   const [birdSingingBack, setBirdSingingBack] = useState(false);
+  const intervalId = useRef<NodeJS.Timeout>(null);
+  async function handleIntervalicBirdSingingCheck() {
+    const soundStatus = await eponaSound?.getStatusAsync();
+    // @ts-expect-error property does in fact exist
+    if (!soundStatus?.isPlaying) {
+      setBirdSingingBack(false);
+      if (intervalId?.current) {
+        clearInterval(intervalId?.current);
+        // @ts-expect-error Mutating ref
+        intervalId.current = null;
+      }
+    }
+  }
+
   function onPatternMatch(matchedPattern: string) {
     setBirdSingingBack(true);
     console.log(matchedPattern);
-    playSound();
+    playJingle();
     setTimeout(() => {
-      setBirdSingingBack(false);
-    }, 2000);
+      playEponaSound();
+      // @ts-expect-error Mutating ref
+      intervalId.current = setInterval(
+        () => handleIntervalicBirdSingingCheck(),
+        500
+      );
+    }, 1000);
     // openModal();
   }
   const { addSound } = useSoundMemory(onPatternMatch);
