@@ -1,22 +1,30 @@
+import { useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import useSound from '@/hooks/useSound';
 
 type SoundComponentProps = {
-  soundSource: any;
-  onPlay?: () => void;
+  playSound: () => void;
   disabled?: boolean;
 };
 
 export default function SoundComponent({
-  soundSource,
-  onPlay = () => {},
+  playSound,
   disabled = false,
 }: SoundComponentProps) {
-  const { playSound } = useSound({ soundSource, onPlay });
-
+  const [internalDisabled, setInternalDisabled] = useState(false);
+  const onPlaySound = () => {
+    playSound();
+    setInternalDisabled(true);
+    setTimeout(() => {
+      setInternalDisabled(false);
+    }, 1000);
+  };
   return (
     <View style={styles.container}>
-      <Button title="Play Sound" onPress={playSound} disabled={disabled} />
+      <Button
+        title="Play Sound"
+        onPress={onPlaySound}
+        disabled={disabled || internalDisabled}
+      />
     </View>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import EponaSong from './EponaSong';
+import BirdBoxTheme from './BirdBoxTheme';
 import useSound from '@/hooks/useSound';
 import ootFanfare from '@/assets/audio/OOT_PressStart_Mono.mp3';
+import BirdBoxLofi from './BirdBoxLofi';
 
 type SongRouterProps = {
   songTitle?: string;
@@ -30,7 +31,12 @@ export default function SongRouter({
   }, [songTitle]);
 
   if (selectedSong === 'epona') {
-    return <EponaSong onEventSoundFinish={onEventSoundFinish} />;
+    return (
+      <BirdBoxTheme onEventSoundFinish={() => setSelectedSong('birdBoxLofi')} />
+    );
+  }
+  if (selectedSong === 'birdBoxLofi') {
+    return <BirdBoxLofi onEventSoundFinish={onEventSoundFinish} />;
   }
 
   return <></>;

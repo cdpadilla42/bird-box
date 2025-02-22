@@ -42,9 +42,23 @@ export default function useSound({
     const isSoundLoaded = await getIsSoundLoaded();
     if (sound && isSoundLoaded) {
       console.log('Playing Sound');
-      await sound.stopAsync();
+      // await sound.stopAsync();
       await sound.playAsync();
       onPlay();
+    }
+  }
+
+  async function stopSound() {
+    const isSoundLoaded = await getIsSoundLoaded();
+    if (sound && isSoundLoaded) {
+      // setTimeout(async () => {
+      //   await sound.stopAsync();
+      // }, 500);
+      // @ts-expect-error fade not in types
+      //   await sound.setVolumeAsync(0, {
+      //     shouldCorrectPitch: false,
+      //     currentTime: currentPosition + fadeOutDuration
+      // });
     }
   }
 
@@ -66,5 +80,5 @@ export default function useSound({
       : undefined;
   }, [sound]);
 
-  return { playSound, sound };
+  return { playSound, stopSound, sound };
 }

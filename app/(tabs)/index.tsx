@@ -14,6 +14,7 @@ import { Link } from 'expo-router';
 import { openModal } from '../modal';
 import { useState } from 'react';
 import SongRouter from '@/components/SongComponents/SongRouter';
+import SoundBoard from '@/components/SoundBoard';
 
 export default function HomeScreen() {
   const [birdSingingBack, setBirdSingingBack] = useState(false);
@@ -87,19 +88,8 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <Link href="/modal">Open modal</Link>
-        <SoundComponent
-          soundSource={ah}
-          onPlay={() => handleAddSound('ah')}
-          disabled={birdSingingBack}
-        />
-        <SoundComponent
-          soundSource={oh}
-          onPlay={() => handleAddSound('oh')}
-          disabled={birdSingingBack}
-        />
-        <SoundComponent
-          soundSource={la}
-          onPlay={() => handleAddSound('la')}
+        <SoundBoard
+          handleAddSound={handleAddSound}
           disabled={birdSingingBack}
         />
         <SongRouter
