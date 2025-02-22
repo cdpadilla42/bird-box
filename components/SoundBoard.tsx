@@ -47,7 +47,7 @@ export default function SoundBoard({ handleAddSound, disabled }: Props) {
     stopG();
   };
   return (
-    <div>
+    <>
       <SoundComponent
         playSound={() => playSoundAndStopOthers(playE)}
         disabled={disabled}
@@ -68,6 +68,6 @@ export default function SoundBoard({ handleAddSound, disabled }: Props) {
         playSound={() => playSoundAndStopOthers(playG)}
         disabled={disabled}
       />
-    </div>
+    </>
   );
 }

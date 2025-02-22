@@ -43,6 +43,7 @@ export default function useSound({
     if (sound && isSoundLoaded) {
       console.log('Playing Sound');
       // await sound.stopAsync();
+      await sound.setPositionAsync(0);
       await sound.playAsync();
       onPlay();
     }
