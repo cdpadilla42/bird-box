@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
+import MusicNoteButton from './Button';
 
 type SoundComponentProps = {
   playSound: () => void;
@@ -20,7 +21,7 @@ export default function SoundComponent({
   };
   return (
     <View style={styles.container}>
-      <Button
+      <MusicNoteButton
         title="Play Sound"
         onPress={onPlaySound}
         disabled={disabled || internalDisabled}
@@ -32,8 +33,14 @@ export default function SoundComponent({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexBasis: '26%',
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
-    padding: 10,
+    padding: 30,
+    display: 'flex',
+    alignItems: 'center',
+
+    // width: 60,
+    // height: 60,
   },
 });

@@ -6,6 +6,7 @@ import whistleB from '@/assets/audio/Whistle_B.mp3';
 import whistleG from '@/assets/audio/Whistle_G.mp3';
 import whistleD from '@/assets/audio/Whistle_D.mp3';
 import whistleE from '@/assets/audio/Whistle_E.mp3';
+import { StyleSheet, View } from 'react-native';
 
 type Props = {
   handleAddSound: (sound: string) => void;
@@ -47,7 +48,7 @@ export default function SoundBoard({ handleAddSound, disabled }: Props) {
     stopG();
   };
   return (
-    <>
+    <View style={styles.container}>
       <SoundComponent
         playSound={() => playSoundAndStopOthers(playE)}
         disabled={disabled}
@@ -68,6 +69,17 @@ export default function SoundBoard({ handleAddSound, disabled }: Props) {
         playSound={() => playSoundAndStopOthers(playG)}
         disabled={disabled}
       />
-    </>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    // flexDirection: 'row',
+    flexDirection: 'row-reverse',
+    // gap: 0,
+  },
+});
