@@ -1,4 +1,12 @@
-import { Image, StyleSheet, Platform, View, SafeAreaView } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  SafeAreaView,
+  ImageBackground,
+  type ImageBackgroundProps,
+} from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -33,9 +41,42 @@ export default function HomeScreen() {
     setBirdSingingBack(true);
   }
 
+  const imageBackgroundPlatformStyles: { width?: string; height?: string } = {};
+  const stepContainerPlatformStyles = {};
+  if (!['ios', 'android'].includes(Platform.OS)) {
+    imageBackgroundPlatformStyles.width = '100%';
+    imageBackgroundPlatformStyles.height = '100%';
+    stepContainerPlatformStyles;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ThemedView style={styles.stepContainer}>
+      <View style={{ ...styles.stepContainer, ...stepContainerPlatformStyles }}>
+        <ImageBackground
+          source={require('@/assets/images/BirdBoxBG.png')}
+          imageStyle={{ resizeMode: 'cover' }}
+          style={
+            {
+              // resizeMode: 'cover',
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              ...imageBackgroundPlatformStyles,
+            } as ImageBackgroundProps
+          }
+        >
+          <Image
+            // style={styles.tinyLogo}
+            source={require('@/assets/images/BirdBoxToucan.png')}
+            style={{
+              width: 450,
+              height: 318,
+              // aspectRatio: 2480 / 3508,
+              resizeMode: 'contain',
+            }}
+          />
+        </ImageBackground>
         <SoundBoard
           handleAddSound={handleAddSound}
           disabled={birdSingingBack}
@@ -46,7 +87,7 @@ export default function HomeScreen() {
           onPlaySong={onPlaySong}
         />
         <Link href="/modal">Open modal</Link>
-      </ThemedView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -57,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#e7f8ea',
   },
   titleContainer: {
     flexDirection: 'row',
@@ -65,14 +106,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   stepContainer: {
-    gap: 8,
+    // gap: 8,
+    maxWidth: 550,
+    maxHeight: 550,
     marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+    position: 'relative',
   },
 });

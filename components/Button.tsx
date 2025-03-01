@@ -19,8 +19,8 @@ export default function MusicNoteButton({
           backgroundColor: disabled ? 'pink' : '#ADD8E6',
           borderRadius: 100,
           padding: 15,
-          width: 45,
-          height: 45,
+          width: 50,
+          height: 50,
         }}
       >
         {/* <Text style={{ color: 'white', fontSize: 20, fontWeight: '800' }}>

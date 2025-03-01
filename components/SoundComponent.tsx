@@ -33,9 +33,9 @@ export default function SoundComponent({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexBasis: '26%',
+    flexBasis: '29%',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#e7f8ea',
     padding: 30,
     display: 'flex',
     alignItems: 'center',
