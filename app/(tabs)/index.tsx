@@ -51,7 +51,6 @@ export default function HomeScreen() {
           imageStyle={{ resizeMode: 'cover' }}
           style={
             {
-              // resizeMode: 'cover',
               flex: 1,
               display: 'flex',
               justifyContent: 'center',
@@ -61,12 +60,10 @@ export default function HomeScreen() {
           }
         >
           <Image
-            // style={styles.tinyLogo}
             source={require('@/assets/images/BirdBoxToucan.gif')}
             style={{
               width: 450,
               height: 318,
-              // aspectRatio: 2480 / 3508,
               resizeMode: 'contain',
             }}
           />
