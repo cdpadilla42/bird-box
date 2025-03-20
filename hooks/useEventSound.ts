@@ -12,10 +12,12 @@ export default function useEventSound({
   const intervalId = useRef<NodeJS.Timeout>(null);
   const { playSound: playEponaSound, sound: eponaSound } = useSound({
     soundSource,
+    playOnLoad: false,
   });
 
   async function handleIntervalCheck() {
-    const soundStatus = await eponaSound?.getStatusAsync();
+    const soundStatus = await eponaSound.current?.getStatusAsync();
+    console.log('check');
     // @ts-expect-error property does in fact exist
     if (soundStatus && !soundStatus?.isPlaying) {
       onSoundFinish();
@@ -29,12 +31,12 @@ export default function useEventSound({
 
   function playEventSound() {
     setTimeout(() => {
-      console.log('playing');
       playEponaSound();
+      console.log('played...');
       // @ts-expect-error Mutating ref
       intervalId.current = setInterval(() => handleIntervalCheck(), 500);
     }, 1000);
   }
 
-  return { playEventSound, soundLoaded: !!eponaSound };
+  return { playEventSound, soundLoaded: !!eponaSound.current };
 }

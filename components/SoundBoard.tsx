@@ -1,7 +1,7 @@
 import useSound from '@/hooks/useSound';
 import React from 'react';
 import SoundComponent from './SoundComponent';
-import whistleA from '@/assets/audio/Whistle_A.mp3';
+import whistleA from '@/assets/audio/Whistle_A.wav';
 import whistleB from '@/assets/audio/Whistle_B.mp3';
 import whistleG from '@/assets/audio/Whistle_G.mp3';
 import whistleD from '@/assets/audio/Whistle_D.mp3';
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // flexDirection: 'row',
     flexDirection: 'row-reverse',
-    // gap: 0,
+    gap: 10,
   },
 });

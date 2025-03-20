@@ -8,13 +8,7 @@ import {
   type ImageBackgroundProps,
 } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { useSoundMemory } from '@/hooks/useSoundMemory';
-import { Link } from 'expo-router';
-import { openModal } from '../modal';
 import { useState } from 'react';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
@@ -68,7 +62,7 @@ export default function HomeScreen() {
         >
           <Image
             // style={styles.tinyLogo}
-            source={require('@/assets/images/BirdBoxToucan.png')}
+            source={require('@/assets/images/BirdBoxToucan.gif')}
             style={{
               width: 450,
               height: 318,
@@ -86,7 +80,6 @@ export default function HomeScreen() {
           onEventSoundFinish={onEventSoundFinish}
           onPlaySong={onPlaySong}
         />
-        <Link href="/modal">Open modal</Link>
       </View>
     </SafeAreaView>
   );

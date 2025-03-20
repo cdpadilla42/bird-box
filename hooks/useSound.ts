@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Audio } from 'expo-av';
+import { useEffect, useRef, useState } from 'react';
+import { Audio, InterruptionModeAndroid } from 'expo-av';
 import { Sound } from 'expo-av/build/Audio';
 
 type UseSoundProps = {
   soundSource: any;
   onPlay?: () => void;
+  playOnLoad: boolean;
 };
+
+type SoundRef = Sound | null;
 
 export default function useSound({
   soundSource,
   onPlay = () => {},
+  playOnLoad = true,
 }: UseSoundProps) {
-  const [sound, setSound] = useState<Sound>();
+  // const [sound, setSound] = useState<Sound>();
+  const soundRef = useRef<SoundRef>(null);
 
   async function getIsSoundLoaded() {
-    if (sound) {
+    if (soundRef.current) {
       return new Promise((res, rej) => {
         const id = setInterval(() => {
           let checkCount = 0;
           const run = async () => {
-            const status = await sound.getStatusAsync();
-            if (status.isLoaded) {
+            const status = await soundRef.current?.getStatusAsync();
+            if (status?.isLoaded) {
               res(true);
               clearInterval(id);
             }
@@ -40,18 +45,18 @@ export default function useSound({
 
   async function playSound() {
     const isSoundLoaded = await getIsSoundLoaded();
-    if (sound && isSoundLoaded) {
+    if (soundRef.current && isSoundLoaded) {
       console.log('Playing Sound');
       // await sound.stopAsync();
-      await sound.setPositionAsync(0);
-      await sound.playAsync();
+      await soundRef.current?.setPositionAsync(0);
+      await soundRef.current?.playAsync();
       onPlay();
     }
   }
 
   async function stopSound() {
     const isSoundLoaded = await getIsSoundLoaded();
-    if (sound && isSoundLoaded) {
+    if (soundRef.current && isSoundLoaded) {
       // setTimeout(async () => {
       //   await sound.stopAsync();
       // }, 500);
@@ -66,20 +71,35 @@ export default function useSound({
   useEffect(() => {
     const loadSound = async () => {
       console.log('Loading Sound');
-      const { sound } = await Audio.Sound.createAsync(soundSource);
-      setSound(sound);
+      // await Audio.requestPermissionsAsync();
+      console.log('setup');
+      await Audio.setAudioModeAsync({
+        staysActiveInBackground: false,
+        interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+        shouldDuckAndroid: false,
+        // playThroughEarpieceAndroid: false,
+        // allowsRecordingIOS: false,
+        // interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+      });
+
+      const { sound } = await Audio.Sound.createAsync(soundSource, {
+        shouldPlay: playOnLoad,
+      });
+      // await sound.loadAsync(soundSource, { shouldPlay: true });
+      soundRef.current = sound;
     };
     loadSound();
   }, [soundSource]);
 
-  useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+  // useEffect(() => {
+  //   return sound
+  //     ? () => {
+  //         console.log('Unloading Sound');
+  //         sound.unloadAsync();
+  //       }
+  //     : undefined;
+  // }, [sound]);
 
-  return { playSound, stopSound, sound };
+  return { playSound, stopSound, sound: soundRef };
 }

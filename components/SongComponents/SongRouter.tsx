@@ -18,6 +18,7 @@ export default function SongRouter({
   const [selectedSong, setSelectedSong] = useState<string>();
   const { playSound: playJingle } = useSound({
     soundSource: ootFanfare,
+    playOnLoad: false,
   });
 
   useEffect(() => {
@@ -25,12 +26,14 @@ export default function SongRouter({
       onPlaySong();
       playJingle();
       setSelectedSong(songTitle);
+      console.log(songTitle);
     } else {
       setSelectedSong('');
     }
   }, [songTitle]);
 
   if (selectedSong === 'epona') {
+    console.log('epona');
     return (
       <BirdBoxTheme onEventSoundFinish={() => setSelectedSong('birdBoxLofi')} />
     );

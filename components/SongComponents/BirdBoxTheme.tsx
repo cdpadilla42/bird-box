@@ -13,10 +13,9 @@ export default function BirdBoxTheme({ onEventSoundFinish }: Props) {
   });
 
   useEffect(() => {
-    if (soundLoaded) {
-      playEventSound();
-    }
-  }, [soundLoaded]);
+    console.log(soundLoaded);
+    playEventSound();
+  }, []);
 
   return <></>;
 }

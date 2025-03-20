@@ -12,8 +12,8 @@ export default function SoundComponent({
   disabled = false,
 }: SoundComponentProps) {
   const [internalDisabled, setInternalDisabled] = useState(false);
-  const onPlaySound = () => {
-    playSound();
+  const onPlaySound = async () => {
+    await playSound();
     setInternalDisabled(true);
     setTimeout(() => {
       setInternalDisabled(false);

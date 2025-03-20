@@ -13,10 +13,8 @@ export default function BirdBoxLofi({ onEventSoundFinish }: Props) {
   });
 
   useEffect(() => {
-    if (soundLoaded) {
-      playEventSound();
-    }
-  }, [soundLoaded]);
+    playEventSound();
+  }, []);
 
   return <></>;
 }
