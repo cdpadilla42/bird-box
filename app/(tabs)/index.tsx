@@ -47,7 +47,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={{ ...styles.stepContainer, ...stepContainerPlatformStyles }}>
         <ImageBackground
-          source={require('@/assets/images/BirdBoxBG.png')}
+          source={require('@/assets/images/BirdBoxCloudedBG.png')}
           imageStyle={{ resizeMode: 'cover' }}
           style={
             {
@@ -60,7 +60,7 @@ export default function HomeScreen() {
           }
         >
           <Image
-            source={require('@/assets/images/BirdBoxToucan.gif')}
+            source={require('@/assets/images/BirdBoxToucan4.gif')}
             style={{
               width: 450,
               height: 318,
