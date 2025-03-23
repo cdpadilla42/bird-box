@@ -12,8 +12,12 @@ export default function MusicNoteButton({
   title = '',
   disabled = false,
 }: Props) {
+  const handlePress = () => {
+    if (disabled) return;
+    onPress();
+  };
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={handlePress}>
       <View
         style={{
           backgroundColor: disabled ? 'pink' : '#ADD8E6',

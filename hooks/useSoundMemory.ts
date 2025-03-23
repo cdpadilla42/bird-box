@@ -5,6 +5,8 @@ type UseSoundMemoryProps = (patternMatched: string) => void;
 
 const PATTERNS = {
   epona: ['D', 'B', 'G', 'A', 'B', 'G'],
+  drumAndBirdTheme: ['G', 'A', 'G', 'A', 'G', 'A'],
+  tropicalTheme: ['E', 'D', 'B', 'E', 'D', 'B'],
 };
 
 function patternMatches(soundMemory: string[], patterns: typeof PATTERNS) {

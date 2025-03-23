@@ -3,6 +3,10 @@ import BirdBoxTheme from './BirdBoxTheme';
 import useSound from '@/hooks/useSound';
 import ootFanfare from '@/assets/audio/OOT_PressStart_Mono.mp3';
 import BirdBoxLofi from './BirdBoxLofi';
+import DrumAndBirdTheme from './DrumAndBirdTheme';
+import DrumAndBird from './DrumAndBird';
+import Tropical from './Tropical';
+import TropicalTheme from './TropicalTheme';
 
 type SongRouterProps = {
   songTitle?: string;
@@ -37,6 +41,24 @@ export default function SongRouter({
     return (
       <BirdBoxTheme onEventSoundFinish={() => setSelectedSong('birdBoxLofi')} />
     );
+  }
+  if (selectedSong === 'drumAndBirdTheme') {
+    return (
+      <DrumAndBirdTheme
+        onEventSoundFinish={() => setSelectedSong('drumAndBird')}
+      />
+    );
+  }
+  if (selectedSong === 'drumAndBird') {
+    return <DrumAndBird onEventSoundFinish={onEventSoundFinish} />;
+  }
+  if (selectedSong === 'tropicalTheme') {
+    return (
+      <TropicalTheme onEventSoundFinish={() => setSelectedSong('tropical')} />
+    );
+  }
+  if (selectedSong === 'tropical') {
+    return <Tropical onEventSoundFinish={onEventSoundFinish} />;
   }
   if (selectedSong === 'birdBoxLofi') {
     return <BirdBoxLofi onEventSoundFinish={onEventSoundFinish} />;
