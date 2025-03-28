@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 
 type Props = {
   onPress: () => void;
@@ -26,11 +26,7 @@ export default function MusicNoteButton({
           width: 50,
           height: 50,
         }}
-      >
-        {/* <Text style={{ color: 'white', fontSize: 20, fontWeight: '800' }}>
-          {title}
-        </Text> */}
-      </View>
+      ></View>
     </TouchableOpacity>
   );
 }

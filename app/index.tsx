@@ -6,14 +6,14 @@ import {
   SafeAreaView,
   ImageBackground,
   type ImageBackgroundProps,
-  Button,
+  Text,
+  TouchableOpacity,
 } from 'react-native';
 
 import { useSoundMemory } from '@/hooks/useSoundMemory';
 import { useState } from 'react';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const [birdSingingBack, setBirdSingingBack] = useState(false);
@@ -51,12 +51,30 @@ export default function HomeScreen() {
       <View style={{ ...styles.stepContainer, ...stepContainerPlatformStyles }}>
         {showPlayButton ? (
           <View>
-            <Button
-              title="Play"
+            <TouchableOpacity
               onPress={() => {
                 setShowPlayButton(false);
               }}
-            />
+            >
+              <View
+                style={{
+                  backgroundColor: '#add8e6b7',
+                  borderRadius: 100,
+                  padding: 15,
+                }}
+              >
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: 24,
+                    fontStyle: 'italic',
+                  }}
+                >
+                  Play!
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         ) : (
           <>
