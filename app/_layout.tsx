@@ -1,10 +1,11 @@
 import { useFonts } from 'expo-font';
 
 import * as SplashScreen from 'expo-splash-screen';
-import Page from './(tabs)/index';
+import Page from './index';
 
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Stack } from 'expo-router';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,5 +25,21 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Page />;
+  return (
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{
+          headerShown: false,
+          navigationBarHidden: true,
+        }}
+      />
+      <Stack.Screen
+        name="modal"
+        options={{
+          presentation: 'modal',
+        }}
+      />
+    </Stack>
+  );
 }

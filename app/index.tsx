@@ -6,16 +6,19 @@ import {
   SafeAreaView,
   ImageBackground,
   type ImageBackgroundProps,
+  Button,
 } from 'react-native';
 
 import { useSoundMemory } from '@/hooks/useSoundMemory';
 import { useState } from 'react';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const [birdSingingBack, setBirdSingingBack] = useState(false);
   const [songTitle, setSongTitle] = useState<string>();
+  const [showPlayButton, setShowPlayButton] = useState(Platform.OS === 'web');
 
   function onPatternMatch(matchedPattern: string) {
     setSongTitle(matchedPattern);
@@ -46,37 +49,51 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ ...styles.stepContainer, ...stepContainerPlatformStyles }}>
-        <ImageBackground
-          source={require('@/assets/images/BirdBoxCloudedBG.png')}
-          imageStyle={{ resizeMode: 'cover' }}
-          style={
-            {
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              ...imageBackgroundPlatformStyles,
-            } as ImageBackgroundProps
-          }
-        >
-          <Image
-            source={require('@/assets/images/BirdBoxToucan4.gif')}
-            style={{
-              width: 450,
-              height: 318,
-              resizeMode: 'contain',
-            }}
-          />
-        </ImageBackground>
-        <SoundBoard
-          handleAddSound={handleAddSound}
-          disabled={birdSingingBack}
-        />
-        <SongRouter
-          songTitle={songTitle}
-          onEventSoundFinish={onEventSoundFinish}
-          onPlaySong={onPlaySong}
-        />
+        {showPlayButton ? (
+          <View>
+            <Button
+              title="Play"
+              onPress={() => {
+                setShowPlayButton(false);
+              }}
+            />
+          </View>
+        ) : (
+          <>
+            <ImageBackground
+              source={require('@/assets/images/BirdBoxCloudedBG.png')}
+              imageStyle={{ resizeMode: 'cover' }}
+              style={
+                {
+                  flex: 1,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  ...imageBackgroundPlatformStyles,
+                } as ImageBackgroundProps
+              }
+            >
+              <Image
+                source={require('@/assets/images/BirdBoxToucan4.gif')}
+                style={{
+                  width: 450,
+                  height: 318,
+                  resizeMode: 'contain',
+                }}
+              />
+            </ImageBackground>
+            <SoundBoard
+              handleAddSound={handleAddSound}
+              disabled={birdSingingBack}
+            />
+            <SongRouter
+              songTitle={songTitle}
+              onEventSoundFinish={onEventSoundFinish}
+              onPlaySong={onPlaySong}
+            />
+            {/* <Link href="/modal">Open modal</Link> */}
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

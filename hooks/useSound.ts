@@ -45,11 +45,12 @@ export default function useSound({
 
   async function playSound() {
     const isSoundLoaded = await getIsSoundLoaded();
-    if (soundRef.current && isSoundLoaded) {
+    console.log('sound loaded', isSoundLoaded);
+    if (soundRef.current) {
       console.log('Playing Sound');
       // await sound.stopAsync();
-      await soundRef.current?.setPositionAsync(0);
-      await soundRef.current?.playAsync();
+      await soundRef.current.setPositionAsync(0);
+      await soundRef.current.playAsync();
       onPlay();
     }
   }
@@ -88,6 +89,7 @@ export default function useSound({
       });
       // await sound.loadAsync(soundSource, { shouldPlay: true });
       soundRef.current = sound;
+      console.log('Sound loaded');
     };
     loadSound();
   }, [soundSource]);
