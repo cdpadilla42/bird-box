@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
+    "@expo/config-plugins": "^3.0.5",
     "@types/jest": "^29.5.14",
     "@types/lodash.isequal": "^4.5.8",
     "@types/react": "~18.3.12",

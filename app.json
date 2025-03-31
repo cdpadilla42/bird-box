@@ -19,7 +19,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#9fd6c0"
-      }
+      },
+      "package": "com.chrisdpadilla.bird",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
@@ -36,8 +38,10 @@
           "resizeMode": "contain",
           "backgroundColor": "#9fd6c0"
         }
-      ]
+      ],
+      "./config-plugins/with-android-gifs"
     ],
+
     "experiments": {
       "typedRoutes": true
     },
