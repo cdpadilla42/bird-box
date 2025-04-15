@@ -1,4 +1,4 @@
-## Bird Box!
+# Bird Box!
 
 Bird Box is a simple toy music box! You can also unlock hidden songs if you play the right notes.
 
