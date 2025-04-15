@@ -1,50 +1,9 @@
-# Welcome to your Expo app 👋
+## Bird Box!
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bird Box is a simple toy music box! You can also unlock hidden songs if you play the right notes.
 
-## Get started
+When I first played Ocarina of Time, I would just spend ages fooling around with the ocarina. Inspired by that simple pleasure of making sounds, I took the opportunity to learn just enough [React Native](https://reactnative.dev/) to bring my own app to life!
 
-1. Install dependencies
+There are currently a few hidden songs to discover. Playing a 6 note sequence will unlock the song. HINT: if you listen to [the OST](https://www.chrisdpadilla.com/birdboxost), you may be able to pick out the first few notes that start each song. ;)
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+You can download Bird Box from [the iOS App Store](https://apps.apple.com/us/app/bird-box/id6743654734) or visit the game [in your desktop browser](https://bird-box-weld.vercel.app/).
