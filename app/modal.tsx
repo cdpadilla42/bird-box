@@ -1,13 +1,34 @@
+import useBirdBoxStore from '@/components/lib/zustand/useBirdBoxStore';
+import SongBook from '@/components/SongBook/SongBook';
 import { Link, router } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Modal() {
+export default function Modal(): JSX.Element {
   const isPresented = router.canGoBack();
+  const { getBirdSingingBack, setBirdSingingBack } = useBirdBoxStore();
+  const birdSingingBack = getBirdSingingBack();
+
+  function onEventSoundFinish() {
+    setBirdSingingBack(false);
+  }
+
+  function onPlaySong() {
+    setBirdSingingBack(true);
+  }
 
   return (
     <View style={styles.container}>
-      <Text>Modal screen</Text>
-      {isPresented && <Link href="../">Dismiss modal</Link>}
+      <Text>Songbook</Text>
+      <SongBook
+        onEventSoundFinish={onEventSoundFinish}
+        onPlaySong={onPlaySong}
+        birdSingingBack={birdSingingBack}
+      />
+      {isPresented && (
+        <Link href="../" disabled={birdSingingBack}>
+          Dismiss modal
+        </Link>
+      )}
     </View>
   );
 }

@@ -5,18 +5,20 @@ import {
   View,
   SafeAreaView,
   ImageBackground,
-  type ImageBackgroundProps,
   Text,
   TouchableOpacity,
+  type ImageBackgroundProps,
 } from 'react-native';
-
-import { useSoundMemory } from '@/hooks/useSoundMemory';
+import { Link } from 'expo-router';
 import { useState } from 'react';
+import { useSoundMemory } from '@/hooks/useSoundMemory';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
+import useBirdBoxStore from '@/components/lib/zustand/useBirdBoxStore';
 
-export default function HomeScreen() {
-  const [birdSingingBack, setBirdSingingBack] = useState(false);
+export default function HomeScreen(): JSX.Element {
+  const { getBirdSingingBack, setBirdSingingBack } = useBirdBoxStore();
+  const birdSingingBack = getBirdSingingBack();
   const [songTitle, setSongTitle] = useState<string>();
   const [showPlayButton, setShowPlayButton] = useState(Platform.OS === 'web');
 
@@ -100,6 +102,7 @@ export default function HomeScreen() {
                 }}
               />
             </ImageBackground>
+
             <SoundBoard
               handleAddSound={handleAddSound}
               disabled={birdSingingBack}
@@ -109,7 +112,9 @@ export default function HomeScreen() {
               onEventSoundFinish={onEventSoundFinish}
               onPlaySong={onPlaySong}
             />
-            {/* <Link href="/modal">Open modal</Link> */}
+            <Link href="/modal" disabled={birdSingingBack}>
+              Open modal
+            </Link>
           </>
         )}
       </View>

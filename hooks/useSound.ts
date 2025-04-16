@@ -5,7 +5,7 @@ import { Sound } from 'expo-av/build/Audio';
 type UseSoundProps = {
   soundSource: any;
   onPlay?: () => void;
-  playOnLoad: boolean;
+  playOnLoad?: boolean;
 };
 
 type SoundRef = Sound | null;

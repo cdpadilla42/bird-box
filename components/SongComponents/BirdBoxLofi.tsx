@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import birdBoxTheme from '@/assets/audio/BirdBoxLofi.mp3';
+import drumAndBirdTheme from '@/assets/audio/DrumAndBirdTheme.mp3';
 import useEventSound from '@/hooks/useEventSound';
 
 type Props = {
