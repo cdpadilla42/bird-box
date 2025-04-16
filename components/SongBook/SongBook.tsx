@@ -19,7 +19,7 @@ export default function SongBook({
   return (
     <View>
       <SongBookButton
-        name="Chill Lofi Birds"
+        name="Lofi Birds"
         onPress={onPlaySong}
         disabled={birdSingingBack}
         soundSource={birdBoxTheme}

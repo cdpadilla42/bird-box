@@ -1,10 +1,17 @@
-import useBirdBoxStore from '@/components/lib/zustand/useBirdBoxStore';
+import useBirdBoxStore from '@/app/store/useBirdBoxStore';
 import SongBook from '@/components/SongBook/SongBook';
 import { Link, router } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextStyle, View } from 'react-native';
+
+export const textStyles: TextStyle = {
+  color: '#95b6b6',
+  fontWeight: 'bold',
+  fontSize: 20,
+  fontStyle: 'italic',
+};
 
 export default function Modal(): JSX.Element {
-  const isPresented = router.canGoBack();
+  const canGoBack = router.canGoBack();
   const { getBirdSingingBack, setBirdSingingBack } = useBirdBoxStore();
   const birdSingingBack = getBirdSingingBack();
 
@@ -18,17 +25,15 @@ export default function Modal(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Text>Songbook</Text>
+      <Text style={textStyles}>Songbook</Text>
       <SongBook
         onEventSoundFinish={onEventSoundFinish}
         onPlaySong={onPlaySong}
         birdSingingBack={birdSingingBack}
       />
-      {isPresented && (
-        <Link href="../" disabled={birdSingingBack}>
-          Dismiss modal
-        </Link>
-      )}
+      <Link href={canGoBack ? '../' : '/'} disabled={birdSingingBack}>
+        <Text style={textStyles}>Close</Text>
+      </Link>
     </View>
   );
 }
@@ -46,24 +51,3 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     flex: 1,
-//   },
-//   titleContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     gap: 8,
-//   },
-//   stepContainer: {
-//     // gap: 8,
-//     maxWidth: 550,
-//     maxHeight: 550,
-//     marginBottom: 8,
-//     position: 'relative',
-//   },
-// });

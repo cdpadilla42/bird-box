@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useSoundMemory } from '@/hooks/useSoundMemory';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
-import useBirdBoxStore from '@/components/lib/zustand/useBirdBoxStore';
+import useBirdBoxStore from '@/app/store/useBirdBoxStore';
 
 export default function HomeScreen(): JSX.Element {
   const { getBirdSingingBack, setBirdSingingBack } = useBirdBoxStore();
@@ -112,12 +112,24 @@ export default function HomeScreen(): JSX.Element {
               onEventSoundFinish={onEventSoundFinish}
               onPlaySong={onPlaySong}
             />
-            <Link href="/modal" disabled={birdSingingBack}>
-              Open modal
-            </Link>
           </>
         )}
       </View>
+      {!showPlayButton && (
+        <View style={styles.songBookButton}>
+          <Link href="/modal" disabled={birdSingingBack}>
+            <View
+              style={{
+                backgroundColor: birdSingingBack ? 'pink' : '#eee5b0',
+                borderRadius: 100,
+                padding: 15,
+                width: 50,
+                height: 50,
+              }}
+            ></View>
+          </Link>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -141,5 +153,11 @@ const styles = StyleSheet.create({
     maxHeight: 550,
     marginBottom: 8,
     position: 'relative',
+  },
+  songBookButton: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    transform: [{ translateX: '-50%' }, { translateY: '-100%' }],
   },
 });
