@@ -1,13 +1,10 @@
 import {
-  Image,
   StyleSheet,
   Platform,
   View,
   SafeAreaView,
-  ImageBackground,
   Text,
   TouchableOpacity,
-  type ImageBackgroundProps,
 } from 'react-native';
 import { Link } from 'expo-router';
 import { useState } from 'react';
@@ -15,6 +12,7 @@ import { useSoundMemory } from '@/hooks/useSoundMemory';
 import SongRouter from '@/components/SongComponents/SongRouter';
 import SoundBoard from '@/components/SoundBoard';
 import useBirdBoxStore from '@/app/store/useBirdBoxStore';
+import ToucanImage from '@/components/ToucanImage';
 
 export default function HomeScreen(): JSX.Element {
   const { getBirdSingingBack, setBirdSingingBack } = useBirdBoxStore();
@@ -41,16 +39,14 @@ export default function HomeScreen(): JSX.Element {
   }
 
   const imageBackgroundPlatformStyles: { width?: string; height?: string } = {};
-  const stepContainerPlatformStyles = {};
   if (!['ios', 'android'].includes(Platform.OS)) {
     imageBackgroundPlatformStyles.width = '100%';
     imageBackgroundPlatformStyles.height = '100%';
-    stepContainerPlatformStyles;
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ ...styles.stepContainer, ...stepContainerPlatformStyles }}>
+      <View style={{ ...styles.stepContainer }}>
         {showPlayButton ? (
           <View>
             <TouchableOpacity
@@ -80,28 +76,7 @@ export default function HomeScreen(): JSX.Element {
           </View>
         ) : (
           <>
-            <ImageBackground
-              source={require('@/assets/images/BirdBoxCloudedBG.png')}
-              imageStyle={{ resizeMode: 'cover' }}
-              style={
-                {
-                  flex: 1,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  ...imageBackgroundPlatformStyles,
-                } as ImageBackgroundProps
-              }
-            >
-              <Image
-                source={require('@/assets/images/BirdBoxToucan4.gif')}
-                style={{
-                  width: 450,
-                  height: 318,
-                  resizeMode: 'contain',
-                }}
-              />
-            </ImageBackground>
+            <ToucanImage disabled={birdSingingBack} />
 
             <SoundBoard
               handleAddSound={handleAddSound}
@@ -158,6 +133,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    transform: [{ translateX: '-50%' }, { translateY: '-100%' }],
+    transform: [{ translateX: '-50%' }, { translateY: '-50%' }],
   },
 });

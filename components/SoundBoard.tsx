@@ -48,38 +48,55 @@ export default function SoundBoard({ handleAddSound, disabled }: Props) {
     stopG();
   };
   return (
-    <View style={styles.container}>
-      <SoundComponent
-        playSound={() => playSoundAndStopOthers(playE)}
-        disabled={disabled}
-      />
-      <SoundComponent
-        playSound={() => playSoundAndStopOthers(playD)}
-        disabled={disabled}
-      />
-      <SoundComponent
-        playSound={() => playSoundAndStopOthers(playB)}
-        disabled={disabled}
-      />
-      <SoundComponent
-        playSound={() => playSoundAndStopOthers(playA)}
-        disabled={disabled}
-      />
-      <SoundComponent
-        playSound={() => playSoundAndStopOthers(playG)}
-        disabled={disabled}
-      />
+    <View style={styles.parentContainer}>
+      <View style={styles.container}>
+        <SoundComponent
+          playSound={() => playSoundAndStopOthers(playE)}
+          disabled={disabled}
+        />
+        <SoundComponent
+          playSound={() => playSoundAndStopOthers(playD)}
+          disabled={disabled}
+        />
+        <SoundComponent
+          playSound={() => playSoundAndStopOthers(playB)}
+          disabled={disabled}
+        />
+      </View>
+      <View style={styles.container2}>
+        <SoundComponent
+          playSound={() => playSoundAndStopOthers(playA)}
+          disabled={disabled}
+        />
+        <SoundComponent
+          playSound={() => playSoundAndStopOthers(playG)}
+          disabled={disabled}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
     alignItems: 'center',
-    // flexDirection: 'row',
     flexDirection: 'row-reverse',
     gap: 10,
+  },
+  container2: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row-reverse',
+    width: '75%',
+    gap: 0,
   },
 });

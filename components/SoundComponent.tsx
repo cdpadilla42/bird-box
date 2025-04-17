@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexBasis: '29%',
-    justifyContent: 'center',
     backgroundColor: '#e7f8ea',
-    padding: 30,
+    padding: 20,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
 
     // width: 60,
     // height: 60,
