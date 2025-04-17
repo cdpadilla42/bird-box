@@ -3,13 +3,11 @@ import { View, TouchableOpacity } from 'react-native';
 
 type Props = {
   onPress: () => void;
-  title: string;
   disabled?: boolean;
 };
 
 export default function MusicNoteButton({
   onPress = () => {},
-  title = '',
   disabled = false,
 }: Props) {
   const handlePress = () => {

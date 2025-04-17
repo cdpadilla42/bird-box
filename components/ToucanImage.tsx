@@ -6,7 +6,6 @@ import {
   ImageBackgroundProps,
   Platform,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import quack from '@/assets/audio/Quack.mp3';
 
