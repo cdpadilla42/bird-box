@@ -30,8 +30,8 @@ export default function useEventSound({
   }
 
   function playEventSound() {
-    setTimeout(() => {
-      playEponaSound();
+    setTimeout(async () => {
+      await playEponaSound();
       console.log('played...');
       // @ts-expect-error Mutating ref
       intervalId.current = setInterval(() => handleIntervalCheck(), 500);
