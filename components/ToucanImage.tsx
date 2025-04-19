@@ -4,16 +4,22 @@ import {
   Image,
   ImageBackground,
   ImageBackgroundProps,
+  ImageSourcePropType,
   Platform,
   TouchableOpacity,
 } from 'react-native';
 import quack from '@/assets/audio/Quack.mp3';
+import ToucanResting from '@/assets/images/BirdBoxToucanResting.gif';
+import ToucanSinging from '@/assets/images/BirdBoxToucan5.gif';
+import useBirdBoxStore from '@/app/store/useBirdBoxStore';
 
 type ToucanImageProps = {
   disabled: boolean;
 };
 
 export default function ToucanImage({ disabled }: ToucanImageProps) {
+  const { getBirdSingingBack } = useBirdBoxStore();
+  const birdSingingBack = getBirdSingingBack();
   const { playSound, stopSound } = useSound({
     soundSource: quack,
     playOnLoad: false,
@@ -51,11 +57,21 @@ export default function ToucanImage({ disabled }: ToucanImageProps) {
         activeOpacity={1}
       >
         <Image
-          source={require('@/assets/images/BirdBoxToucan4.gif')}
+          source={ToucanResting as ImageSourcePropType}
           style={{
             width: 450,
             height: 318,
             resizeMode: 'contain',
+            display: birdSingingBack ? 'none' : 'flex',
+          }}
+        />
+        <Image
+          source={ToucanSinging as ImageSourcePropType}
+          style={{
+            width: 450,
+            height: 318,
+            resizeMode: 'contain',
+            display: birdSingingBack ? 'flex' : 'none',
           }}
         />
       </TouchableOpacity>
