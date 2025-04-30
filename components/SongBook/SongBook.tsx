@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import birdBoxTheme from '@/assets/audio/BirdBoxLofiTheme.mp3';
 import tropcialTheme from '@/assets/audio/BirdBoxTropicalTheme.mp3';
-import drumAndBirdTheme from '@/assets/audio/DrumAndBirdTheme.mp3';
+import drumAndBirdTheme from '@/assets/audio/DrumAndBirdThemeTimesThree.mp3';
 import SongBookButton from './SongBookButton';
 
 type SongBookProps = {
